@@ -13,11 +13,24 @@
         <a href="https://vuejs.org" @click.prevent="notifyF">
             A_href default action will be prevented.
         </a>
-
+        <br>
         <div v-show="isShowWarning" @click="isShowWarning = !isShowWarning">Some warning is VISIBLE</div>
         <div v-show="!isShowWarning" @click="isShowWarning = !isShowWarning">Some warning is HIDDEN</div>
+        <br>
+        <div :class="[{ red: isRedClass }, classBoldName]" @click=" isRedClass = true ">Im red after click.</div>
+        <br>
+        <div>{{ authorData.name +' is allow crossBooking: '+isAllowCrossBooking }}</div>
+        <br>
 
-        <div :class="[{ red: isRedClass }, classBoldName]" @click=" isRedClass = true " >Im red after click.</div>
+        <template v-for="book of books" :key="book.id">
+            <p v-if="book.like">
+                I like "{{book.name}}"
+            </p>
+            <p v-else="book.like">
+                I'm neutral about "{{book.name}}"
+            </p>
+        </template>
+
     </div>
 </body>
 
@@ -30,7 +43,7 @@
   </script>
 
 <script type="module">
-    import { createApp, ref } from 'vue'
+    import { createApp, ref, reactive, computed } from 'vue'
 
     createApp({
         setup() {
@@ -38,6 +51,19 @@
             const isShowWarning = ref(true)
             const isRedClass = ref(false)
             const classBoldName = 'bold'
+
+            const authorData = reactive(
+                {
+                    name: 'Ivas',
+                    booksCount: 25,
+                }
+            )
+            const isAllowCrossBooking = computed(
+                () => {
+                    return (authorData.booksCount) > 20 ? true : false
+                }
+            )
+
             function messageReverseF() {
                 //mutate ref()
                 message.value = message.value.split('').reverse().join('')
@@ -45,13 +71,28 @@
             function notifyF() {
                 alert('A_href default action was prevented.')
             }
+
+            const books = reactive(
+                [
+                    { id: '980a2298-8335-4cb4-a45f-04a30aa68ac2', name: 'Dostoevky "Idiot"', like: false },
+                    { id: 'd57220e5-795e-40be-8092-8bf768be3cf1', name: 'Kafka "Castle"', like: true },
+                    { id: 'a5ab102b-4445-4d63-93ab-1e77ceab7eb3', name: 'Vaughn Vernon "Domain-Driven Design"', like: true },
+
+                ]
+            )
+            books.push({ id: 'b96f5470-0a5e-4bf4-8f97-ea1f770644e9', name: 'Uncle Bob "Clean Architecture"', like: true })
+            books.reverse()
+
             return {
                 message,
                 messageReverseF,
                 notifyF,
                 isShowWarning,
                 isRedClass,
-                classBoldName
+                classBoldName,
+                authorData,
+                isAllowCrossBooking,
+                books
             }
         }
     }).mount('#app1')
@@ -61,7 +102,8 @@
     .red {
         color: red;
     }
-    .bold{
+
+    .bold {
         font-weight: bold;
     }
 </style>
