@@ -7,15 +7,24 @@
 </head>
 
 <body>
-    <div id="app">
-        <h1>{{ message }}</h1>
+    <div id="app1">
+        <h1 :title="`Title is ${message} by v-bind.`">{{ message + ' inline expression.' }}</h1>
+        <button @click="messageReverseF">messageReverseF</button> <br><br>
+        <a href="https://vuejs.org" @click.prevent="notifyF">
+            A_href default action will be prevented.
+        </a>
+
+        <div v-show="isShowWarning" @click="isShowWarning = !isShowWarning">Some warning is VISIBLE</div>
+        <div v-show="!isShowWarning" @click="isShowWarning = !isShowWarning">Some warning is HIDDEN</div>
+
+        <div :class="[{ red: isRedClass }, classBoldName]" @click=" isRedClass = true " >Im red after click.</div>
     </div>
 </body>
 
 <script type="importmap">
     {
         "imports": {
-          "vue": "https://unpkg.com/vue@3.3.4/dist/vue.esm-browser.js"          
+          "vue": "/js/unpkg.com_vue@3.3.4_dist_vue.esm-browser.js"          
         }
       }
   </script>
@@ -24,13 +33,37 @@
     import { createApp, ref } from 'vue'
 
     createApp({
-        setup() {           
+        setup() {
             const message = ref('Hello World!')
+            const isShowWarning = ref(true)
+            const isRedClass = ref(false)
+            const classBoldName = 'bold'
+            function messageReverseF() {
+                //mutate ref()
+                message.value = message.value.split('').reverse().join('')
+            }
+            function notifyF() {
+                alert('A_href default action was prevented.')
+            }
             return {
-                message
+                message,
+                messageReverseF,
+                notifyF,
+                isShowWarning,
+                isRedClass,
+                classBoldName
             }
         }
-    }).mount('#app')
+    }).mount('#app1')
 </script>
+
+<style>
+    .red {
+        color: red;
+    }
+    .bold{
+        font-weight: bold;
+    }
+</style>
 
 </html>
