@@ -8,9 +8,10 @@
 
 <body>
     <div id="app">
-        <ol>
+        <!-- font-size err, use camelCase -->
+        <ol :style="{ fontSize: postFontSize + 'em' }">
             <!-- kebab-case for PascalCase, if use inline DOM withOUT sfc.vue -->
-            <todo-item v-for="item in groceryList" :todo-item-prop="item" :key="item.id"></todo-item>
+            <todo-item @event-enlarge-text="postFontSize += 0.1" v-for="item in groceryList" :todo-item-prop="item" :key="item.id"></todo-item>
         </ol>
     </div>
 </body>
@@ -32,6 +33,8 @@
             TodoItem
         },
         setup() {
+            const postFontSize = ref(1)
+
             const groceryList = ref([
                 { id: 0, text: 'Vegetables' },
                 { id: 1, text: 'Cheese' },
@@ -39,7 +42,8 @@
             ])
 
             return {
-                groceryList
+                groceryList,
+                postFontSize
             }
         }
     }).mount('#app')
