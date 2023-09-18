@@ -1,0 +1,2 @@
+
+docker run -v /tmp/certs:/certs -e SSL_SUBJECT=vue-sandbox.com -e SSL_EXPIRE=9999 stakater/ssl-certs-generator:1.0
