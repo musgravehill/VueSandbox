@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+</head>
+
+<body>
+    <div id="app">
+        <ol>
+            <!-- kebab-case for PascalCase, if use inline DOM withOUT sfc.vue -->
+            <todo-item v-for="item in groceryList" :todo-item-prop="item" :key="item.id"></todo-item>
+        </ol>
+    </div>
+</body>
+
+<script type="importmap">
+    {
+        "imports": {
+          "vue": "/js/unpkg.com_vue@3.3.4_dist_vue.esm-browser.js"          
+        }
+    }
+</script>
+
+<script type="module">
+    import { createApp, ref } from 'vue'
+    import TodoItem from '/js/TodoItem.js'
+
+    createApp({
+        components: {
+            TodoItem
+        },
+        setup() {
+            const groceryList = ref([
+                { id: 0, text: 'Vegetables' },
+                { id: 1, text: 'Cheese' },
+                { id: 2, text: 'Whatever else humans are supposed to eat' }
+            ])
+
+            return {
+                groceryList
+            }
+        }
+    }).mount('#app')
+</script>
+
+
+</html>
