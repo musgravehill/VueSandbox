@@ -44,7 +44,7 @@
     vue.createApp(
         {
             components: {
-                'grid-books': vue.defineAsyncComponent(() => loadModule('/component/Grid.vue', options)),
+                'GridBooks': vue.defineAsyncComponent(() => loadModule('/component/Grid.vue', options)),
             },
             setup() {
                 const searchQuery = vue.ref('')
@@ -70,11 +70,11 @@
             <form id="search">
                 Search <input name="query" v-model="searchQuery">
             </form>
-            <grid-books
+            <GridBooks
                 :data="gridData"
                 :columns="gridColumns"
                 :filter-key="searchQuery"
-            ></grid-books>`
+            ></GridBooks>`
         }
     )
         .mount('#app');

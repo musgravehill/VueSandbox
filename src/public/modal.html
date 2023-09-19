@@ -44,7 +44,7 @@
     vue.createApp(
         {
             components: {
-                'modal-component': vue.defineAsyncComponent(() => loadModule('/component/Modal.vue', options)),
+                'ModalComponent': vue.defineAsyncComponent(() => loadModule('/component/Modal.vue', options)),
             },
             setup() {
                 const showModal = vue.ref(false)
@@ -57,7 +57,7 @@
                 <button id="show-modal" @click="showModal = true">Show Modal</button>
                 <Teleport to="body">
                     <!-- use the modal component, pass in the prop -->
-                    <modal-component :show="showModal" @close="showModal = false">
+                    <ModalComponent :show="showModal" @close="showModal = false">
                     <template #header>
                         <h3>custom header</h3>
                     </template>
@@ -67,7 +67,7 @@
                     <template #footer>
                         <h3>custom footer</h3>
                     </template>
-                    </modal-component>
+                    </ModalComponent>
                 </Teleport>
                      
             `
