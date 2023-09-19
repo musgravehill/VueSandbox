@@ -7,6 +7,9 @@
 </head>
 
 <body>
+
+    todo https://vuejs.org/tutorial/#step-7
+
     <div id="app1">
         <h1 :title="`Title is ${message} by v-bind.`">{{ message + ' inline expression.' }}</h1>
         <button @click="messageReverseF">messageReverseF</button> <br><br>
@@ -61,7 +64,7 @@
         <input type="radio" id="two" value="Two" v-model="picked">
         <label for="two">Two</label>
         <br>
-        <span>Picked: {{ picked }}</span>
+        <span>Picked: {{picked}}</span>
 
         <h2>Select</h2>
         <select v-model="selected">
