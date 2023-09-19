@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+</body>
+
+<script type="importmap">
+    {
+        "imports": {
+          "vue": "/js/unpkg.com_vue@3.3.4_dist_vue.esm-browser.js"          
+        }
+    }
+</script>
+
+<script type="module">
+    import { createApp } from 'vue'
+    import Watcher from '/js/Watcher.js'
+    import WatchEffect from '/js/WatchEffect.js'
+
+    createApp({
+        components: {
+            Watcher,
+            WatchEffect
+        },        
+    }).mount('#app')
+</script>
+
+
+</html>
