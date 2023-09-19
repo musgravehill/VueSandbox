@@ -2,8 +2,11 @@
 import { ref, watchEffect } from 'vue'
 
 export default {
-    props: {},
-    setup() {
+    props: {
+        titleComponent: String
+    },
+    emits: ['emitFromComponent'],
+    setup(props, {emit}) {
         const todoId = ref(1)
         const todoData = ref(null)
 
@@ -15,6 +18,7 @@ export default {
 
         //  no need { immediate: true }. It run immediately for init
         watchEffect(async () => {
+            emit('emitFromComponent', `Now i fetch ${todoId}`) 
             fetchTodoData()
             console.log('Fetch new data.')
         })
@@ -28,7 +32,7 @@ export default {
     // props: ['todoItemProp'], 
     template:
         `
-    <h2>WatchEffect</h2>   
+    <h2>WatchEffect {{titleComponent}}</h2>   
     <p>Todo id: {{ todoId }}</p>
     <button @click="todoId++">Fetch next todo</button>
     <p v-if="!todoData">Loading...</p>

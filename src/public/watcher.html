@@ -8,7 +8,10 @@
 
 <body>
     <div id="app">
-
+        <watcher>This is some slot content!</watcher>
+        <br><br>
+        <watch-effect @emitFromComponent="(emitData)=>{ emitDataInParent=emitData }" :titleComponent="titleFromParent"></watch-effect>
+        <p>Emit data: {{emitDataInParent}}</p>
     </div>
 </body>
 
@@ -29,7 +32,15 @@
         components: {
             Watcher,
             WatchEffect
-        },        
+        },
+        setup() {
+            const titleFromParent = ref('This is TitleFromParent')
+            const emitDataInParent = ref('')
+            return {
+                titleFromParent,
+                emitDataInParent
+            }
+        }
     }).mount('#app')
 </script>
 

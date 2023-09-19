@@ -31,7 +31,8 @@ export default {
     // props: ['todoItemProp'], 
     template:
         `
-    <h2>Watcher</h2>    
+    <h2>Watcher</h2>
+    <p><slot></slot></p>    
     <p>Todo id: {{ todoId }}</p>
     <button @click="todoId++">Fetch next todo</button>
     <p v-if="!todoData">Loading...</p>
