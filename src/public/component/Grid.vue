@@ -9,7 +9,9 @@ const props = defineProps({
 
 const sortKey = ref('')
 const sortOrders = ref(
-    props.columns.reduce((o, key) => ((o[key] = 1), o), {})
+    // props.columns.reduce((o, key) => ((o[key] = 1), o), {})
+
+    props.columns.reduce((o, key) => { o[key] = 1; return o }, {})
 )
 
 const filteredData = computed(() => {
