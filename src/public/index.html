@@ -12,6 +12,9 @@
 
     <div id="app1">
         <h1 :title="`Title is ${message} by v-bind.`">{{ message + ' inline expression.' }}</h1>
+
+        <p ref="pElRef">Nothing here.</p>
+
         <button @click="messageReverseF">messageReverseF</button> <br><br>
         <a href="https://vuejs.org" @click.prevent="notifyF">
             A_href default action will be prevented.
@@ -136,6 +139,11 @@
             books.push({ id: 'b96f5470-0a5e-4bf4-8f97-ea1f770644e9', name: 'Uncle Bob "Clean Architecture"', like: true })
             books.reverse()
 
+            pElRef = ref(null)
+            onMounted(() => {
+                pElRef.value.textContent = 'onMounted event ok.';
+            })
+
             return {
                 message,
                 messageReverseF,
@@ -145,7 +153,8 @@
                 classBoldName,
                 authorData,
                 isAllowCrossBooking,
-                books
+                books,
+                pElRef
             }
         }
     }).mount('#app1')
