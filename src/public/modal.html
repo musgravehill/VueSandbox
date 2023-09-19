@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+<!-- .ESM. module! -->
+<script type="importmap">
+    {
+        "imports": {
+          "vue": "/js/unpkg.com_vue@3.3.4_dist_vue.esm-browser.js",  
+          "vue3-sfc-loader": "/js/vue3-sfc-loader.esm.js"          
+        }
+    }
+</script>
+<script type="module">
+    import * as vue from 'vue'
+    import { loadModule } from "vue3-sfc-loader"
+
+    const options = {
+        moduleCache: {
+            vue: vue
+        },
+        getFile(url) {
+            return fetch(url).then(response => response.ok ? response.text() : Promise.reject(response));
+        },
+        addStyle(styleStr) {
+            const style = document.createElement('style');
+            style.textContent = styleStr;
+            const ref = document.head.getElementsByTagName('style')[0] || null;
+            document.head.insertBefore(style, ref);
+        },
+        log(type, ...args) {
+            console.log(type, ...args);
+        }
+    }
+
+    vue.createApp(
+        {
+            components: {
+                'modal-component': vue.defineAsyncComponent(() => loadModule('/component/Modal.vue', options)),
+            },
+            setup() {
+                const showModal = vue.ref(false)
+                return {
+                    showModal
+                }
+            },
+            template: `   
+            
+                <button id="show-modal" @click="showModal = true">Show Modal</button>
+                <Teleport to="body">
+                    <!-- use the modal component, pass in the prop -->
+                    <modal-component :show="showModal" @close="showModal = false">
+                    <template #header>
+                        <h3>custom header</h3>
+                    </template>
+                    <template #body>
+                        <h3>custom body</h3>
+                    </template>
+                    <template #footer>
+                        <h3>custom footer</h3>
+                    </template>
+                    </modal-component>
+                </Teleport>
+                     
+            `
+        }
+    )
+        .mount('#app');
+
+</script>
+
+</html>
