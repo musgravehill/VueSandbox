@@ -3,7 +3,7 @@ import { ref, watchEffect } from 'vue'
 
 export default {
     props: {
-        titleComponent: String
+        titleInComponent: String
     },
     emits: ['emitFromComponent'],
     setup(props, {emit}) {
@@ -18,21 +18,21 @@ export default {
 
         //  no need { immediate: true }. It run immediately for init
         watchEffect(async () => {
-            emit('emitFromComponent', `Now i fetch ${todoId}`) 
+            emit('emitFromComponent', `Now i fetch ${todoId.value}`) 
             fetchTodoData()
-            console.log('Fetch new data.')
+            console.log(`Fetch new data ${todoId.value}.`)
         })
 
         return {
             todoId,
-            todoData
+            todoData             
         }
     },
     // emits: ['event-enlarge-text'],
     // props: ['todoItemProp'], 
     template:
         `
-    <h2>WatchEffect {{titleComponent}}</h2>   
+    <h2>WatchEffect {{titleInComponent}}</h2>   
     <p>Todo id: {{ todoId }}</p>
     <button @click="todoId++">Fetch next todo</button>
     <p v-if="!todoData">Loading...</p>

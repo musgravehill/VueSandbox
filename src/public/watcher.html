@@ -10,7 +10,7 @@
     <div id="app">
         <watcher>This is some slot content!</watcher>
         <br><br>
-        <watch-effect @emitFromComponent="(emitData)=>{ emitDataInParent=emitData }" :titleComponent="titleFromParent"></watch-effect>
+        <watch-effect @emit-from-component="(emitData)=>{ emitDataInParent=emitData }" :title-in-component="titleFromParent"></watch-effect>
         <p>Emit data: {{emitDataInParent}}</p>
     </div>
 </body>
@@ -24,7 +24,7 @@
 </script>
 
 <script type="module">
-    import { createApp } from 'vue'
+    import { createApp, ref } from 'vue'
     import Watcher from '/js/Watcher.js'
     import WatchEffect from '/js/WatchEffect.js'
 
