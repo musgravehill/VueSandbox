@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+</head>
+
+<body>
+    <div id="app1">
+        <h1>sfc.vue cannot import</h1>
+    </div>
+</body>
+
+<script type="importmap">
+    {
+        "imports": {
+          "vue": "/js/unpkg.com_vue@3.3.4_dist_vue.esm-browser.js"          
+        }
+    }
+</script>
+
+<script type="module">
+    import { createApp, ref, reactive, computed } from 'vue'
+    import Modal from '/component/Modal.vue'
+
+
+    createApp({
+        components: {
+            Modal
+        },
+        setup() {
+
+
+            return {
+
+            }
+        }
+    }).mount('#app1')
+
+
+</script>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+</style>
+
+</html>
